@@ -17,7 +17,7 @@ class customerController extends Controller
         // echo '</pre>';
         return view("customer.index", compact('customers'));
     }
-    
+
     function create(){
         return view("customer.create");
     }

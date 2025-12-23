@@ -12,8 +12,9 @@
 
   </head>
   <body class="col-6 m-auto mt-5">
-    <form action="{{ URL("customer/save") }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ URL("system/user") }}" method="POST" enctype="multipart/form-data">
       @csrf
+      @method("POST")
     <label for="name">Name</label>
     <input  class="form-control" id="name" name="name" placeholder="Enter name">
     @error("name")
@@ -28,16 +29,8 @@
     @enderror
   </div>
   <div class="form-group">
-    <label for="phone">Phone</label>
-    <input  class="form-control" id="phone" name="phone" placeholder="Enter phone">
-  </div>
-  <div class="form-group">
-    <label for="address">Address</label>
-    <input  class="form-control" id="address" name="address"  placeholder="Enter address">
-  </div>
-  <div class="form-group">
-    <label for="photo">Photo</label>
-    <input type="file" class="form-control" id="photo" name="photo" >
+    <label for="password">Password</label>
+    <input  class="form-control" id="password" name="password" placeholder="Enter password">
   </div>
 
   <button type="submit" class="btn btn-primary mt-2">Submit</button>
