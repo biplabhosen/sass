@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\customerController;
 use App\Http\Controllers\UserController;
+use App\Mail\UserNotification;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -26,3 +29,11 @@ Route::delete('/customer/delete/{id} ', [customerController::class, "delete"]);
 Route::prefix("system")->group(function(){
     Route::resource("user", UserController::class);
 });
+
+Route::get('sendmail', function () {
+    Mail::to("biplobhosen214@gmail.com")->send(new UserNotification);
+});
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

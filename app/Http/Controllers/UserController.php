@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\UserNotification;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -13,8 +16,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::select("name", "email", "id")->paginate(5);
-        return view("pages.erp.user.index", compact("users"));
+        // $users = User::select("name", "email", "id")->paginate(5);
+        // $users = User::with("role:id,name")->get();
+        $users = Role::with("user")->get();
+        // return view("pages.erp.user.index", compact("users"));
+        return $users;
     }
 
     /**
@@ -75,4 +81,6 @@ class UserController extends Controller
         User::find($id)->delete();
         return redirect("system/user");
     }
+
+
 }

@@ -2,16 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\UserNotification;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class customerController extends Controller
 {
-    function index(){
+    function index(Request $request){
         // $customers = Customer::all();
         $customers = Customer::paginate(5);
         // $customers = DB::table('customers')->get();
+        $customers = Customer::when($request->search, function($query) use($request){
+            return $query->whereAny(["name", "id", "email", "phone"], "LIKE", "%".$request->search."%");
+        })->paginate(5);
         // echo '<pre>';
         // print_r($customers);
         // echo '</pre>';
@@ -47,6 +52,7 @@ class customerController extends Controller
         $customer->photo = $imgname;
         $customer->address = $request->address;
         $customer->save();
+        Mail::to($request->email)->send(new UserNotification);
         return redirect('customer');
     }
     function find($id){
