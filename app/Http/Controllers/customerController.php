@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\MakeUser;
 use App\Mail\UserNotification;
 use App\Models\Customer;
 use Illuminate\Http\Request;
@@ -52,7 +53,8 @@ class customerController extends Controller
         $customer->photo = $imgname;
         $customer->address = $request->address;
         $customer->save();
-        Mail::to($request->email)->send(new UserNotification);
+        event(new MakeUser($customer));
+        // Mail::to($request->email)->send(new UserNotification);
         return redirect('customer');
     }
     function find($id){
