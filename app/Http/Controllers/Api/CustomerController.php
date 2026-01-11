@@ -47,16 +47,28 @@ class CustomerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Customer $customer)
     {
-        //
+    //     $request->validate([
+    //         'name'=>'required|min:4',
+    //         'email'=>'email|unique:customers,email',
+    //         'phone'=>'required'
+    //     ],
+    //     [
+    //         'name.required'=> 'Please give your name.'
+    //     ]
+    //    );
+
+    //    Customer::updated($customer);
+
+    return $request->all();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Customer $customer)
     {
-        //
+        $customer->delete();
     }
 }
