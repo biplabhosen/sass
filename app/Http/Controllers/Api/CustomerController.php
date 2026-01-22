@@ -14,7 +14,7 @@ class CustomerController extends Controller
     public function index()
     {
         $customer= Customer::all();
-        return $customer;
+        return response()->json($customer,200);
 
     }
 
@@ -34,6 +34,7 @@ class CustomerController extends Controller
        );
 
        Customer::create($customer);
+       return response()->json('Customer created successfully');
     }
 
     /**
